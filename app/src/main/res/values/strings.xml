@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TestSuitmedia</string>
+    <string name="txtNama">Nama :</string>
+    <string name="btnEvent">Pilih event</string>
+    <string name="btnGuest">Pilih guest</string>
+    <string name="btnHome">Next</string>
+</resources>
