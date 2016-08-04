@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import com.example.masboyjahat.testsuitmedia.util.Constants;
 import com.example.masboyjahat.testsuitmedia.R;
 import com.example.masboyjahat.testsuitmedia.presenters.MainPresenter;
+import com.example.masboyjahat.testsuitmedia.util.Dummy;
 
 public class HomeActivity extends AppCompatActivity implements IActivity, IActivity.IHome {
     private ProgressDialog progress;
@@ -27,6 +29,7 @@ public class HomeActivity extends AppCompatActivity implements IActivity, IActiv
         setContentView(R.layout.activity_home);
         mainPresenter = new MainPresenter(this);
         progress = new ProgressDialog(this);
+        Log.d("JSON", Dummy.jsonEvent);
         btnNext = (Button) findViewById(R.id.btnNext);
         etNama = (EditText) findViewById(R.id.etNama);
         btnNext.setOnClickListener(new View.OnClickListener() {
