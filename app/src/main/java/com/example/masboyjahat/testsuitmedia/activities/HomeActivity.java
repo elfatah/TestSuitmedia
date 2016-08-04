@@ -48,7 +48,12 @@ public class HomeActivity extends AppCompatActivity implements IActivity, IActiv
         progress.show();
 
     }
-
+    @Override
+    protected void onDestroy() {
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+        sharedPreferences.edit().clear().commit();
+        super.onDestroy();
+    }
     @Override
     public void hideProgress() {
         progress.dismiss();
@@ -63,6 +68,7 @@ public class HomeActivity extends AppCompatActivity implements IActivity, IActiv
         editor.putString(Constants.USERNAME, name);
         editor.commit();
         startActivity(intent);
+
         hideProgress();
 
     }

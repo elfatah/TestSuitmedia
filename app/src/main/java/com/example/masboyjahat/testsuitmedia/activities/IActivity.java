@@ -20,6 +20,8 @@ public interface IActivity {
 
     interface IEventGuest{
         void eventCallback(String nama);
+        void guestCallback(String nama, String birthdate);
+        void populateEventList();
     }
 
 

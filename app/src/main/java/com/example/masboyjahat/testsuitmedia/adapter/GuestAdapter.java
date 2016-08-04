@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -13,33 +14,33 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.example.masboyjahat.testsuitmedia.R;
 import com.example.masboyjahat.testsuitmedia.VolleySingleton;
 import com.example.masboyjahat.testsuitmedia.models.EventModel;
+import com.example.masboyjahat.testsuitmedia.models.GuestModel;
 
 import java.util.List;
 
 /**
  * Created by masboy jahat on 8/4/2016.
  */
-public class EventAdapter extends BaseAdapter {
+public class GuestAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater layoutInflater;
-    private List<EventModel> eventModelList;
+    private List<GuestModel> guestModelList;
 
-    ImageLoader imageLoader = VolleySingleton.getInstance().getImageLoader();
 
-    public EventAdapter(Activity activity, List<EventModel> eventModelList){
+    public GuestAdapter(Activity activity, List<GuestModel> guestModelList){
         this.activity = activity;
-        this.eventModelList = eventModelList;
+        this.guestModelList = guestModelList;
     }
 
 
     @Override
     public int getCount() {
-        return eventModelList.size();
+        return guestModelList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return eventModelList.get(i);
+        return guestModelList.get(i);
     }
 
     @Override
@@ -53,21 +54,20 @@ public class EventAdapter extends BaseAdapter {
             layoutInflater = (LayoutInflater) activity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (view == null)
-            view = layoutInflater.inflate(R.layout.list_event_item, null);
-
-        if (imageLoader == null)
-            imageLoader = VolleySingleton.getInstance().getImageLoader();
-
-        NetworkImageView thumbNail = (NetworkImageView) view
-                .findViewById(R.id.thumbnail);
-        TextView tvNamaEvent = (TextView) view.findViewById(R.id.tvNameEvent);
-        TextView tvTanggal = (TextView) view.findViewById(R.id.tvTanggalEvent);
+            view = layoutInflater.inflate(R.layout.list_guest_item, null);
 
 
-        EventModel eventModel = eventModelList.get(i);
-        thumbNail.setImageUrl(eventModel.getThumnailUrl(), imageLoader);
-        tvNamaEvent.setText(eventModel.getNama());
-        tvTanggal.setText(eventModel.getTanggal());
+
+        ImageView thumbNail = (ImageView) view
+                .findViewById(R.id.ivGuest);
+        TextView tvNamaGuest = (TextView) view.findViewById(R.id.tvGuestName);
+
+
+
+        GuestModel guestModel = guestModelList.get(i);
+        thumbNail.setImageResource(guestModel.getImage());
+        tvNamaGuest.setText(guestModel.getName());
+
 
         return view;
     }

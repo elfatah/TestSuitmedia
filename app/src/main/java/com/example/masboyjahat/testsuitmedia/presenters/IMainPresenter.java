@@ -6,7 +6,9 @@ package com.example.masboyjahat.testsuitmedia.presenters;
 public interface IMainPresenter {
 
     void showChooseEventActivity(String name);
-    void showGuestEvent(String name);
+    void showEventName(String name);
+    void showGuestName(String name, String birthdate);
+
     void showEvent();
     void showGuest();
 

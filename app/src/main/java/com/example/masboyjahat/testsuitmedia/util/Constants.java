@@ -13,6 +13,7 @@ public class Constants {
 
     public final static String EVENT_LIST = "EVENT_LIST";
     public final static String GUESTS_LIST = "GUESTS_LIST";
-    public final static String SERVER_URL = "http://dry-sierra-6832.herokuapp.com/api/people";
+    public final static String GUEST_SERVER_URL = "http://dry-sierra-6832.herokuapp.com/api/people";
+    public final static String EVENT_SERVER_URL = "https://raw.githubusercontent.com/elfatah/TestSuitmedia/master/app/eventDummy.json";
 
 }

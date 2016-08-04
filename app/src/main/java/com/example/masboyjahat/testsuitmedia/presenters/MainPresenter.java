@@ -2,12 +2,14 @@ package com.example.masboyjahat.testsuitmedia.presenters;
 
 import com.example.masboyjahat.testsuitmedia.activities.IActivity;
 import com.example.masboyjahat.testsuitmedia.models.EventModel;
+import com.example.masboyjahat.testsuitmedia.models.GuestModel;
 
 /**
  * Created by masboy jahat on 8/3/2016.
  */
 public class MainPresenter implements IMainPresenter {
     private EventModel eventModel;
+    private GuestModel guestModel;
     private IActivity.IEventGuest iEventGuest;
     private IActivity.IHome iHome;
     private IActivity.IChooseEvent iChooseEvent;
@@ -16,6 +18,7 @@ public class MainPresenter implements IMainPresenter {
     public MainPresenter(IActivity.IEventGuest iEventGuest) {
         this.iEventGuest = iEventGuest;
         eventModel = new EventModel();
+        guestModel = new GuestModel();
     }
 
     public MainPresenter(IActivity.IHome iHome){
@@ -32,9 +35,16 @@ public class MainPresenter implements IMainPresenter {
     }
 
     @Override
-    public void showGuestEvent(String name) {
+    public void showEventName(String name) {
         eventModel.setNama(name);
         iEventGuest.eventCallback(eventModel.getNama());
+    }
+
+    @Override
+    public void showGuestName(String name, String birthdate) {
+        guestModel.setName(name);
+        guestModel.setBirthdate(birthdate);
+        iEventGuest.guestCallback(guestModel.getName(),guestModel.getBirthdate());
     }
 
     @Override
