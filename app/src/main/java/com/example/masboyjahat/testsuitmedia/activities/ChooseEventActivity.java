@@ -15,13 +15,13 @@ import com.example.masboyjahat.testsuitmedia.presenters.MainPresenter;
 import com.example.masboyjahat.testsuitmedia.util.Constants;
 import com.example.masboyjahat.testsuitmedia.R;
 
-public class ChooseEventActivity extends AppCompatActivity implements IActivity, IActivity.IChooseEvent
-{
+public class ChooseEventActivity extends AppCompatActivity implements IActivity, IActivity.IChooseEvent {
     private Button btnEvent, btnGuest;
     private TextView txtNama;
-    private String nama = "", namaEvent = "",namaGuest = "";
+    private String nama = "", namaEvent = "", namaGuest = "";
     private ProgressDialog progress;
     private MainPresenter mainPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +36,10 @@ public class ChooseEventActivity extends AppCompatActivity implements IActivity,
         namaEvent = sharedPreferences.getString(Constants.EVENT_NAME, "");
         namaGuest = sharedPreferences.getString(Constants.GUEST_NAME, "");
         txtNama.setText(nama);
-        if(!namaEvent.equals("")){
+        if (!namaEvent.equals("")) {
             btnEvent.setText(namaEvent);
         }
-        if(!namaGuest.equals("")){
+        if (!namaGuest.equals("")) {
             btnGuest.setText(namaGuest);
         }
         btnGuest.setOnClickListener(new View.OnClickListener() {
@@ -59,12 +59,18 @@ public class ChooseEventActivity extends AppCompatActivity implements IActivity,
     }
 
     @Override
+    protected void onDestroy() {
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+        sharedPreferences.edit().clear().commit();
+        super.onDestroy();
+    }
+
+    @Override
     public void showProgress() {
         progress.setMessage("Silahkan tunggu");
         progress.show();
 
     }
-
 
 
     @Override
@@ -76,7 +82,6 @@ public class ChooseEventActivity extends AppCompatActivity implements IActivity,
     public void showEvent() {
         Intent intent = new Intent(ChooseEventActivity.this, EventListActivity.class);
         startActivity(intent);
-        finish();
 
 
     }
@@ -85,7 +90,7 @@ public class ChooseEventActivity extends AppCompatActivity implements IActivity,
     public void showGuest() {
         Intent intent = new Intent(ChooseEventActivity.this, GuestCollectionActivity.class);
         startActivity(intent);
-        finish();
+
     }
 
 
