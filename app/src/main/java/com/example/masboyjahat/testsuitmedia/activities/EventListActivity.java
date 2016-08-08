@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -29,7 +30,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class EventListActivity extends AppCompatActivity implements IActivity, IActivity.IEventGuest {
@@ -44,6 +47,8 @@ public class EventListActivity extends AppCompatActivity implements IActivity, I
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_event_list);
         mainPresenter = new MainPresenter(this);
         listView = (ListView) findViewById(R.id.lvListEvent);
@@ -85,17 +90,20 @@ public class EventListActivity extends AppCompatActivity implements IActivity, I
 
     @Override
     public void eventCallback(String nama) {
-//        Intent intent = new Intent(EventListActivity.this, ChooseEventActivity.class);
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Constants.EVENT_NAME, nama);
         editor.commit();
-//        startActivity(intent);
         finish();
     }
 
     @Override
     public void guestCallback(String nama, String birthdate) {
+
+    }
+
+    @Override
+    public void showAlertDialog(String date) {
 
     }
 
@@ -120,7 +128,10 @@ public class EventListActivity extends AppCompatActivity implements IActivity, I
                                 JSONObject jsonObject = response.getJSONObject(i);
                                 EventModel eventModel = new EventModel();
                                 eventModel.setNama(jsonObject.getString("name"));
-                                eventModel.setTanggal(jsonObject.getString("date"));
+                                Date date = new Date(jsonObject.getString("date").replace('-','/'));
+                                SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
+
+                                eventModel.setTanggal(formatter.format(date));
                                 eventModel.setThumnailUrl(jsonObject.getString("imgUrl"));
 
                                 eventModelList.add(eventModel);

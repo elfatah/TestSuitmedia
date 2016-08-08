@@ -39,7 +39,6 @@ public class HomeActivity extends AppCompatActivity implements IActivity, IActiv
             @Override
             public void onClick(View view) {
                 showAlertDialog(isPalindrome(etNama.getText().toString()));
-                Log.e("Palindrome", isPalindrome(etNama.getText().toString()).toString());
             }
         });
     }
@@ -94,6 +93,7 @@ public class HomeActivity extends AppCompatActivity implements IActivity, IActiv
         return awal.equals(a.reverse().toString());
     }
 
+    @Override
     public void showAlertDialog(boolean isPalindrome) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);
@@ -103,26 +103,17 @@ public class HomeActivity extends AppCompatActivity implements IActivity, IActiv
         } else {
             message = "not Palindrome";
         }
-        // set title
         alertDialogBuilder.setTitle("Alert");
-
-        // set dialog message
         alertDialogBuilder
                 .setMessage(message)
                 .setNeutralButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // if this button is clicked, close
-                        // current activity
                         mainPresenter.showChooseEventActivity(etNama.getText().toString());
 
                     }
                 });
 
-
-        // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
         alertDialog.show();
     }
 

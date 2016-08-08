@@ -12,6 +12,8 @@ public interface IActivity {
     interface IHome{
         void showChooseEvent(String name);
         Boolean isPalindrome(String text);
+        void showAlertDialog(boolean condition);
+
     }
 
     interface IChooseEvent{
@@ -23,6 +25,7 @@ public interface IActivity {
     interface IEventGuest{
         void eventCallback(String nama);
         void guestCallback(String nama, String birthdate);
+        void showAlertDialog(String date);
         void populateEventList();
     }
 

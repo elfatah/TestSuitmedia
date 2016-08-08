@@ -1,7 +1,9 @@
 package com.example.masboyjahat.testsuitmedia.activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.util.TimeZone;
@@ -9,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -49,6 +52,8 @@ public class GuestCollectionActivity extends AppCompatActivity implements IActiv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_guest_collection);
         mainPresenter = new MainPresenter(this);
         gridView = (GridView) findViewById(R.id.gvGuestList);
@@ -67,6 +72,7 @@ public class GuestCollectionActivity extends AppCompatActivity implements IActiv
         });
     }
 
+
     @Override
     public void showProgress() {
         progressDialog.setMessage(getString(R.string.loading_message));
@@ -79,22 +85,54 @@ public class GuestCollectionActivity extends AppCompatActivity implements IActiv
     }
 
     @Override
+    public void showAlertDialog(String date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date tanggal = null;
+        try {
+            tanggal = format.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(tanggal);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+        String message;
+
+        if (isPrime(calendar.get(Calendar.MONTH)+1)) {
+            message = "Month is prime";
+        } else {
+            message = "Month is not prime";
+        }
+        alertDialogBuilder.setTitle("Alert");
+        alertDialogBuilder
+                .setMessage(message)
+                .setNeutralButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    @Override
     public void eventCallback(String nama) {
 
     }
 
     @Override
     public void guestCallback(String nama, String birthdate) {
-//        Intent intent = new Intent(GuestCollectionActivity.this, ChooseEventActivity.class);
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Constants.GUEST_NAME, nama);
         editor.commit();
 
         parseDate(birthdate);
+        showAlertDialog(birthdate);
 
-//        startActivity(intent);
-        finish();
     }
 
     private void parseDate(String date) {
@@ -105,6 +143,7 @@ public class GuestCollectionActivity extends AppCompatActivity implements IActiv
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(tanggal);
         if (calendar.get(Calendar.DAY_OF_MONTH) % 2 == 0 &&
@@ -161,9 +200,9 @@ public class GuestCollectionActivity extends AppCompatActivity implements IActiv
     }
 
     public boolean isPrime(int n) {
-        if(n > 2 && (n & 1) == 0)
+        if (n > 2 && (n & 1) == 0)
             return false;
-        for(int i = 3; i * i <= n; i += 2)
+        for (int i = 3; i * i <= n; i += 2)
             if (n % i == 0)
                 return false;
         return true;
