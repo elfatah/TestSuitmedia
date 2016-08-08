@@ -4,7 +4,9 @@ package com.example.masboyjahat.testsuitmedia;
  * Created by masboy jahat on 8/4/2016.
  */
 
+import android.app.AlertDialog;
 import android.app.Application;
+import android.content.DialogInterface;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
@@ -65,4 +67,6 @@ public class VolleySingleton extends Application {
             mRequestQueue.cancelAll(tag);
         }
     }
+
+
 }

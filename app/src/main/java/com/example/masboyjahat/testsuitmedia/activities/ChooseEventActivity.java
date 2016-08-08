@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.masboyjahat.testsuitmedia.models.EventModel;
 import com.example.masboyjahat.testsuitmedia.presenters.MainPresenter;
 import com.example.masboyjahat.testsuitmedia.util.Constants;
 import com.example.masboyjahat.testsuitmedia.R;
@@ -31,17 +30,7 @@ public class ChooseEventActivity extends AppCompatActivity implements IActivity,
         txtNama = (TextView) findViewById(R.id.txtNama);
         progress = new ProgressDialog(this);
         mainPresenter = new MainPresenter(this);
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
-        nama = sharedPreferences.getString(Constants.USERNAME, "");
-        namaEvent = sharedPreferences.getString(Constants.EVENT_NAME, "");
-        namaGuest = sharedPreferences.getString(Constants.GUEST_NAME, "");
-        txtNama.setText(nama);
-        if (!namaEvent.equals("")) {
-            btnEvent.setText(namaEvent);
-        }
-        if (!namaGuest.equals("")) {
-            btnGuest.setText(namaGuest);
-        }
+        initUI();
         btnGuest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,15 +48,21 @@ public class ChooseEventActivity extends AppCompatActivity implements IActivity,
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        initUI();
+    }
+
+    @Override
     protected void onDestroy() {
+        super.onDestroy();
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
         sharedPreferences.edit().clear().commit();
-        super.onDestroy();
     }
 
     @Override
     public void showProgress() {
-        progress.setMessage("Silahkan tunggu");
+        progress.setMessage(getString(R.string.loading_message));
         progress.show();
 
     }
@@ -84,6 +79,22 @@ public class ChooseEventActivity extends AppCompatActivity implements IActivity,
         startActivity(intent);
 
 
+    }
+
+    @Override
+    public void initUI() {
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+
+        nama = sharedPreferences.getString(Constants.USERNAME, "");
+        namaEvent = sharedPreferences.getString(Constants.EVENT_NAME, "");
+        namaGuest = sharedPreferences.getString(Constants.GUEST_NAME, "");
+        txtNama.setText(nama);
+        if (!namaEvent.equals("")) {
+            btnEvent.setText(namaEvent);
+        }
+        if (!namaGuest.equals("")) {
+            btnGuest.setText(namaGuest);
+        }
     }
 
     @Override

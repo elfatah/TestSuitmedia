@@ -40,7 +40,7 @@ import java.util.List;
 
 public class GuestCollectionActivity extends AppCompatActivity implements IActivity, IActivity.IEventGuest {
     private ProgressDialog progressDialog;
-    private List<GuestModel> guestModelList = new ArrayList<GuestModel>();
+    private List<GuestModel> guestModelList = new ArrayList<>();
     private GridView gridView;
     private GuestAdapter guestAdapter;
     private MainPresenter mainPresenter;
@@ -56,7 +56,7 @@ public class GuestCollectionActivity extends AppCompatActivity implements IActiv
         gridView.setAdapter(guestAdapter);
 
         progressDialog = new ProgressDialog(this);
-        showProgress();
+
         populateEventList();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -69,7 +69,7 @@ public class GuestCollectionActivity extends AppCompatActivity implements IActiv
 
     @Override
     public void showProgress() {
-        progressDialog.setMessage("Silahkan tunggu");
+        progressDialog.setMessage(getString(R.string.loading_message));
         progressDialog.show();
     }
 
@@ -85,7 +85,7 @@ public class GuestCollectionActivity extends AppCompatActivity implements IActiv
 
     @Override
     public void guestCallback(String nama, String birthdate) {
-        Intent intent = new Intent(GuestCollectionActivity.this, ChooseEventActivity.class);
+//        Intent intent = new Intent(GuestCollectionActivity.this, ChooseEventActivity.class);
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Constants.GUEST_NAME, nama);
@@ -93,7 +93,7 @@ public class GuestCollectionActivity extends AppCompatActivity implements IActiv
 
         parseDate(birthdate);
 
-        startActivity(intent);
+//        startActivity(intent);
         finish();
     }
 
@@ -124,11 +124,11 @@ public class GuestCollectionActivity extends AppCompatActivity implements IActiv
 
     @Override
     public void populateEventList() {
+        showProgress();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Constants.GUEST_SERVER_URL,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        hideProgress();
                         for (int i = 0; i < response.length(); i++) {
                             try {
                                 JSONObject jsonObject = response.getJSONObject(i);
@@ -143,16 +143,29 @@ public class GuestCollectionActivity extends AppCompatActivity implements IActiv
                             }
                         }
                         guestAdapter.notifyDataSetChanged();
+                        hideProgress();
+
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+
                 hideProgress();
 
             }
         });
 
         VolleySingleton.getInstance().addToRequestQueue(jsonArrayRequest);
+    }
+
+    public boolean isPrime(int n) {
+        if(n > 2 && (n & 1) == 0)
+            return false;
+        for(int i = 3; i * i <= n; i += 2)
+            if (n % i == 0)
+                return false;
+        return true;
     }
 }

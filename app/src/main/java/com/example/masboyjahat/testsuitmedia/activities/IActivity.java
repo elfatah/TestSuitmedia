@@ -11,11 +11,13 @@ public interface IActivity {
 
     interface IHome{
         void showChooseEvent(String name);
+        Boolean isPalindrome(String text);
     }
 
     interface IChooseEvent{
         void showEvent();
         void showGuest();
+        void initUI();
     }
 
     interface IEventGuest{

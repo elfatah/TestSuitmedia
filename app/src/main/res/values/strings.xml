@@ -3,5 +3,8 @@
     <string name="txtNama">Nama :</string>
     <string name="btnEvent">Pilih event</string>
     <string name="btnGuest">Pilih guest</string>
-    <string name="btnHome">Next</string>
+    <string name="btnHome">Selesai</string>
+    <string name="loading_message">Silahkan tunggu</string>
+    <string name="selamat_datang">Selamat Datang!</string>
+    <string name="welcome_sub">Sertakan gambar profil Anda untuk melengkapi profil.</string>
 </resources>
