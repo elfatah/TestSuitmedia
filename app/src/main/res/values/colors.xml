@@ -11,4 +11,5 @@
     <color name="list_row_hover_start_color">#ebeef0</color>
     <color name="list_row_hover_end_color">#ebeef0</color>
     <color name="event_list_yellow">#c3b357</color>
+    <color name="btn_login_pressed">#2371a0</color>
 </resources>

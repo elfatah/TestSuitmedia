@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,13 +37,14 @@ import java.util.Date;
 import java.util.List;
 
 public class EventListActivity extends AppCompatActivity implements IActivity, IActivity.IEventGuest {
+    private static final String TAG = EventListActivity.class.getSimpleName();
     private ProgressDialog progressDialog;
     private List<EventModel> eventModelList = new ArrayList<>();
     private ListView listView;
     private EventAdapter eventAdapter;
     private MainPresenter mainPresenter;
     private SwipeRefreshLayout srEvent;
-    private static final String TAG = EventListActivity.class.getSimpleName();
+    private ImageButton ibEventBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +55,15 @@ public class EventListActivity extends AppCompatActivity implements IActivity, I
         mainPresenter = new MainPresenter(this);
         listView = (ListView) findViewById(R.id.lvListEvent);
         srEvent = (SwipeRefreshLayout) findViewById(R.id.srEvent);
-
+        ibEventBack = (ImageButton)findViewById(R.id.ibEventBack);
         eventAdapter = new EventAdapter(this, eventModelList);
         listView.setAdapter(eventAdapter);
-
+        ibEventBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         progressDialog = new ProgressDialog(this);
         showProgress();
         populateEventList();
