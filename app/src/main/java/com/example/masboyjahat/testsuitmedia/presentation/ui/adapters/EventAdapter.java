@@ -1,7 +1,8 @@
-package com.example.masboyjahat.testsuitmedia.adapter;
+package com.example.masboyjahat.testsuitmedia.presentation.ui.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,12 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.example.masboyjahat.testsuitmedia.AndroidApplication;
 import com.example.masboyjahat.testsuitmedia.R;
-import com.example.masboyjahat.testsuitmedia.VolleySingleton;
-import com.example.masboyjahat.testsuitmedia.models.EventModel;
+import com.example.masboyjahat.testsuitmedia.domain.model.EventModel;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,11 +27,11 @@ public class EventAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private List<EventModel> eventModelList;
 
-    ImageLoader imageLoader = VolleySingleton.getInstance().getImageLoader();
+    ImageLoader imageLoader = AndroidApplication.getInstance().getImageLoader();
 
-    public EventAdapter(Activity activity, List<EventModel> eventModelList){
+    public EventAdapter(Activity activity){
         this.activity = activity;
-        this.eventModelList = eventModelList;
+        eventModelList = new ArrayList<>();
     }
 
 
@@ -56,7 +59,7 @@ public class EventAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.list_event_item, null);
 
         if (imageLoader == null)
-            imageLoader = VolleySingleton.getInstance().getImageLoader();
+            imageLoader = AndroidApplication.getInstance().getImageLoader();
 
         NetworkImageView thumbNail = (NetworkImageView) view
                 .findViewById(R.id.thumbnail);
@@ -70,5 +73,14 @@ public class EventAdapter extends BaseAdapter {
         tvTanggal.setText(eventModel.getTanggal());
 
         return view;
+    }
+
+    public void fillEventList(@NonNull List<EventModel> eventModels){
+        if(this.eventModelList != null){
+            this.eventModelList.clear();
+        }
+        this.eventModelList = eventModels;
+        notifyDataSetChanged();
+
     }
 }

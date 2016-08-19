@@ -1,36 +1,33 @@
 package com.example.masboyjahat.testsuitmedia;
 
-/**
- * Created by masboy jahat on 8/4/2016.
- */
-
-import android.app.AlertDialog;
 import android.app.Application;
-import android.content.DialogInterface;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.example.masboyjahat.testsuitmedia.util.LruBitmapCache;
+import com.example.masboyjahat.testsuitmedia.utils.LruBitmapCache;
 
-public class VolleySingleton extends Application {
+import timber.log.Timber;
+import timber.log.Timber.DebugTree;
 
-    public static final String TAG = VolleySingleton.class.getSimpleName();
+public class AndroidApplication extends Application {
+    public static final String TAG = AndroidApplication.class.getSimpleName();
 
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
 
-    private static VolleySingleton mInstance;
-
+    private static AndroidApplication mInstance;
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        // initiate Timber
+        Timber.plant(new DebugTree());
     }
 
-    public static synchronized VolleySingleton getInstance() {
+    public static synchronized AndroidApplication getInstance() {
         return mInstance;
     }
 
@@ -67,6 +64,4 @@ public class VolleySingleton extends Application {
             mRequestQueue.cancelAll(tag);
         }
     }
-
-
 }

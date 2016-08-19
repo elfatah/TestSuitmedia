@@ -1,4 +1,4 @@
-package com.example.masboyjahat.testsuitmedia.util;
+package com.example.masboyjahat.testsuitmedia.utils;
 
 /**
  * Created by masboy jahat on 8/3/2016.

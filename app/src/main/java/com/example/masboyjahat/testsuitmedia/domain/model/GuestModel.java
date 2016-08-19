@@ -1,4 +1,4 @@
-package com.example.masboyjahat.testsuitmedia.models;
+package com.example.masboyjahat.testsuitmedia.domain.model;
 
 /**
  * Created by masboy jahat on 8/4/2016.
@@ -20,8 +20,8 @@ public class GuestModel {
         this.image = image;
     }
 
-    String name, birthdate;
-    int image;
+    private String name, birthdate;
+    private int image;
 
     public String getName() {
         return name;

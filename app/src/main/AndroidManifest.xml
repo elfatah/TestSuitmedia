@@ -4,25 +4,25 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".VolleySingleton"
+        android:name=".AndroidApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.HomeActivity">
+        <activity android:name=".presentation.ui.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ChooseEventActivity"
+        <activity android:name=".presentation.ui.activities.ChooseActivity"
             android:label=""
             />
-        <activity android:name=".activities.EventListActivity"
+        <activity android:name=".presentation.ui.activities.EventListActivity"
             android:label="EVENT"/>
-        <activity android:name=".activities.GuestCollectionActivity"
+        <activity android:name=".presentation.ui.activities.GuestListActivity"
             android:label="GUEST"></activity>
     </application>
 

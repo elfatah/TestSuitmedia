@@ -1,7 +1,8 @@
-package com.example.masboyjahat.testsuitmedia.adapter;
+package com.example.masboyjahat.testsuitmedia.presentation.ui.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +10,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
-import com.example.masboyjahat.testsuitmedia.R;
-import com.example.masboyjahat.testsuitmedia.VolleySingleton;
-import com.example.masboyjahat.testsuitmedia.models.EventModel;
-import com.example.masboyjahat.testsuitmedia.models.GuestModel;
 
+import com.example.masboyjahat.testsuitmedia.R;
+import com.example.masboyjahat.testsuitmedia.domain.model.GuestModel;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,9 +26,9 @@ public class GuestAdapter extends BaseAdapter {
     private List<GuestModel> guestModelList;
 
 
-    public GuestAdapter(Activity activity, List<GuestModel> guestModelList){
+    public GuestAdapter(Activity activity){
         this.activity = activity;
-        this.guestModelList = guestModelList;
+        guestModelList = new ArrayList<>();
     }
 
 
@@ -70,5 +69,14 @@ public class GuestAdapter extends BaseAdapter {
 
 
         return view;
+    }
+
+    public void fillGuestList(@NonNull List<GuestModel> guestModels){
+        if(this.guestModelList != null){
+            this.guestModelList.clear();
+        }
+        this.guestModelList= guestModels;
+        notifyDataSetChanged();
+
     }
 }

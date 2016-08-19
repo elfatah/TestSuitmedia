@@ -1,13 +1,13 @@
-package com.example.masboyjahat.testsuitmedia.models;
+package com.example.masboyjahat.testsuitmedia.domain.model;
 
 /**
- * Created by masboy jahat on 8/3/2016.
+ * A sample model. Replace this with your own.
  */
 public class EventModel {
 
-    String nama;
-    String thumnailUrl;
-    String tanggal;
+    private String nama;
+    private String thumnailUrl;
+    private String tanggal;
 
     public String getNama() {
         return nama;
