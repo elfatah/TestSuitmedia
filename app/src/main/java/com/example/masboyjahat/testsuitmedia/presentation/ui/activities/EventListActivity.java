@@ -1,26 +1,33 @@
 package com.example.masboyjahat.testsuitmedia.presentation.ui.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.masboyjahat.testsuitmedia.R;
 import com.example.masboyjahat.testsuitmedia.domain.executor.impl.ThreadExecutor;
 import com.example.masboyjahat.testsuitmedia.domain.model.EventModel;
-import com.example.masboyjahat.testsuitmedia.network.EventRepositoryImpl;
 import com.example.masboyjahat.testsuitmedia.presentation.presenters.EventPresenter;
 import com.example.masboyjahat.testsuitmedia.presentation.presenters.impl.EventPresenterImpl;
 import com.example.masboyjahat.testsuitmedia.presentation.ui.adapters.EventAdapter;
 import com.example.masboyjahat.testsuitmedia.threading.MainThreadImpl;
+import com.example.masboyjahat.testsuitmedia.utils.Constants;
 
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,6 +46,9 @@ public class EventListActivity extends AppCompatActivity implements EventPresent
 
     @BindView(R.id.srEvent)
     SwipeRefreshLayout srEvent;
+
+    @BindView(R.id.fabMapEvent)
+    FloatingActionButton fabMapEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,15 +77,13 @@ public class EventListActivity extends AppCompatActivity implements EventPresent
             }
         });
 
-        listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+        fabMapEvent.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+            public void onClick(View view) {
+                Intent intent = new Intent(EventListActivity.this, MapActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -94,9 +102,19 @@ public class EventListActivity extends AppCompatActivity implements EventPresent
     }
 
     @Override
-    public void showAllEvent(List<EventModel> eventModelList) {
+    public void showAllEvent(final List<EventModel> eventModelList) {
 
         eventAdapter.fillEventList(eventModelList);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(Constants.EVENT_NAME, eventModelList.get(i).getNama());
+                editor.commit();
+                finish();
+            }
+        });
 
         hideProgress();
     }
@@ -118,8 +136,12 @@ public class EventListActivity extends AppCompatActivity implements EventPresent
 
     }
 
+
     @Override
     public void showError(String message) {
 
     }
+
+
+
 }

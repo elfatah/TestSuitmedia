@@ -2,11 +2,16 @@ package com.example.masboyjahat.testsuitmedia.presentation.ui.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -25,9 +30,9 @@ import java.util.List;
 public class EventAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater layoutInflater;
-    private List<EventModel> eventModelList;
+    private  List<EventModel> eventModelList;
 
-    ImageLoader imageLoader = AndroidApplication.getInstance().getImageLoader();
+    private ImageLoader imageLoader = AndroidApplication.getInstance().getImageLoader();
 
     public EventAdapter(Activity activity){
         this.activity = activity;
@@ -76,6 +81,7 @@ public class EventAdapter extends BaseAdapter {
     }
 
     public void fillEventList(@NonNull List<EventModel> eventModels){
+
         if(this.eventModelList != null){
             this.eventModelList.clear();
         }
@@ -83,4 +89,6 @@ public class EventAdapter extends BaseAdapter {
         notifyDataSetChanged();
 
     }
+
+
 }

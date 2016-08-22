@@ -4,10 +4,8 @@ import com.example.masboyjahat.testsuitmedia.domain.executor.Executor;
 import com.example.masboyjahat.testsuitmedia.domain.executor.MainThread;
 import com.example.masboyjahat.testsuitmedia.domain.interactors.GetAllObjectInteractor;
 import com.example.masboyjahat.testsuitmedia.domain.interactors.base.AbstractInteractor;
-import com.example.masboyjahat.testsuitmedia.domain.model.EventModel;
 import com.example.masboyjahat.testsuitmedia.domain.model.GuestModel;
-import com.example.masboyjahat.testsuitmedia.domain.repository.Repository;
-import com.example.masboyjahat.testsuitmedia.network.GuestRepositoryImpl;
+import com.example.masboyjahat.testsuitmedia.network.impl.GuestRepositoryImpl;
 import com.example.masboyjahat.testsuitmedia.network.Network;
 
 import java.util.List;

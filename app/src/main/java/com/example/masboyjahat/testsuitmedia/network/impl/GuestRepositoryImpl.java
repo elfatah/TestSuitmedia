@@ -1,4 +1,4 @@
-package com.example.masboyjahat.testsuitmedia.network;
+package com.example.masboyjahat.testsuitmedia.network.impl;
 
 import android.nfc.Tag;
 import android.util.Log;
@@ -13,6 +13,7 @@ import com.example.masboyjahat.testsuitmedia.R;
 import com.example.masboyjahat.testsuitmedia.domain.model.EventModel;
 import com.example.masboyjahat.testsuitmedia.domain.model.GuestModel;
 import com.example.masboyjahat.testsuitmedia.domain.repository.Repository;
+import com.example.masboyjahat.testsuitmedia.network.Network;
 import com.example.masboyjahat.testsuitmedia.utils.Constants;
 
 import org.json.JSONArray;

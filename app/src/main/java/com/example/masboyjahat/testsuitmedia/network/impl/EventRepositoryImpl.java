@@ -1,4 +1,4 @@
-package com.example.masboyjahat.testsuitmedia.network;
+package com.example.masboyjahat.testsuitmedia.network.impl;
 
 import android.util.Log;
 
@@ -8,6 +8,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.masboyjahat.testsuitmedia.AndroidApplication;
 import com.example.masboyjahat.testsuitmedia.domain.model.EventModel;
 import com.example.masboyjahat.testsuitmedia.domain.repository.Repository;
+import com.example.masboyjahat.testsuitmedia.network.Network;
 import com.example.masboyjahat.testsuitmedia.utils.Constants;
 
 import org.json.JSONArray;
@@ -67,6 +68,8 @@ public EventRepositoryImpl(Network.Callback<EventModel>eventModelCallback){
 
                                 eventModel.setTanggal(formatter.format(date));
                                 eventModel.setThumnailUrl(jsonObject.getString("imgUrl"));
+                                eventModel.setLatitude(jsonObject.getDouble("latitude"));
+                                eventModel.setLongitude(jsonObject.getDouble("longitude"));
                                 eventModelList.add(eventModel);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -79,7 +82,7 @@ public EventRepositoryImpl(Network.Callback<EventModel>eventModelCallback){
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Event List",error.getMessage());
+//                Log.e("Event List",error.getMessage().toString());
 
 
             }

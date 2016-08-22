@@ -1,14 +1,11 @@
 package com.example.masboyjahat.testsuitmedia.domain.interactors.impl;
 
-import android.util.Log;
-
 import com.example.masboyjahat.testsuitmedia.domain.executor.Executor;
 import com.example.masboyjahat.testsuitmedia.domain.executor.MainThread;
 import com.example.masboyjahat.testsuitmedia.domain.interactors.GetAllObjectInteractor;
 import com.example.masboyjahat.testsuitmedia.domain.interactors.base.AbstractInteractor;
 import com.example.masboyjahat.testsuitmedia.domain.model.EventModel;
-import com.example.masboyjahat.testsuitmedia.domain.repository.Repository;
-import com.example.masboyjahat.testsuitmedia.network.EventRepositoryImpl;
+import com.example.masboyjahat.testsuitmedia.network.impl.EventRepositoryImpl;
 import com.example.masboyjahat.testsuitmedia.network.Network;
 
 import java.util.List;
