@@ -86,7 +86,7 @@ public class GuestRepositoryImpl implements Repository<GuestModel> {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Event List", error.getMessage());
+//                Log.e("Event List", error.getMessage());
 
             }
 
